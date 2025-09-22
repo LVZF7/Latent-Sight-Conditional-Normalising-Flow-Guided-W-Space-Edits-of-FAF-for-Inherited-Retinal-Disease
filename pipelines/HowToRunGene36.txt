@@ -1,0 +1,179 @@
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Phase 1: Synthetic generation per gene class
+
+# Generate all 36 gene classes for ABCA4 → USH2A testing. 
+# It calls the generateGSCNFMod.py internally. Implemented for ease of use for this specific use case.
+python scripts/gene/generate_gene_synthetic_data.py \
+  --network weights/syntheye_gene_advaith_512.pkl \
+  --num_classes 36 \
+  --samples_per_class 4000 \
+  --base_seed 0 \
+  --output_dir data/gene_36class/generated
+
+
+# Build arrays for 36 classes, no cnn needed to filter since we generate using the GAN which is already conditioned on gene.
+python scripts/gene/make_flow_arrays_from_manifest_gene.py \
+  --generated_dir data/gene_36class/generated \
+  --outdir data/gene_36class/numpy \
+  --num_classes 36 \
+  --per_class_max 4000
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Phase 2: Train CNF (gene conditioning)
+
+# Train Gene CNF with 36 classes
+python repos/StyleFlow/train_flow_universal.py \
+  --latents_path data/gene_36class/numpy/latents.npy \
+  --attrs_path data/gene_36class/numpy/attributes.npy \
+  --batch_size 64 \
+  --epochs 120 \
+  --lr 1e-4 \
+  --output_dir experiment/gene_36class/flow/checkpoints \
+  --seed 42 \
+  --early_stop_patience 20
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Phase 3: Generate Results
+
+# Generate gene-to-gene edits (e.g., ABCA4 → USH2A) 
+python scripts/gene/test_gene_edits.py \
+  --stylegan_pkl weights/syntheye_gene_advaith_512.pkl \
+  --flow_checkpoint experiment/gene_36class/flow/checkpoints/flow_model_final.pt \
+  --latents_path data/gene_36class/numpy/latents.npy \
+  --attrs_path data/gene_36class/numpy/attributes.npy \
+  --source_gene 0 \
+  --target_gene 35 \
+  --output_dir experiment/gene_36class/edits \
+  --num_samples 4000
+
+# Plot results grid 
+python scripts/results/Gene/qualitative_grid_results_gene.py \
+  --input_dir experiment/gene_36class/edits \
+  --output_dir experiment/gene_36class/result_grid \
+  --img_size 256 \
+  --manifest experiment/gene_36class/edits/edits_manifest.csv \
+  --num_samples 10
+
+# Create interpolation GIFs and grids any num_samples samples starting from start_index
+python scripts/results/All/visualise_interpolation.py \
+    --stylegan_weights weights/syntheye_gene_advaith_512.pkl \
+    --flow_path experiment/gene_36class/flow/checkpoints/flow_model_final.pt \
+    --latents data/gene_36class/numpy/latents.npy \
+    --attributes data/gene_36class/numpy/attributes.npy \
+    --steps 9 \
+    --num_samples 5 \
+    --source_gene 0 \
+    --target_gene 35 \
+    --output_dir experiment/gene_36class/interpolations
+
+# Interpolation GIFs and grids for specific samples
+python scripts/results/All/visualise_interpolation.py \
+    --stylegan_weights weights/syntheye_gene_advaith_512.pkl \
+    --flow_path experiment/gene_36class/flow/checkpoints/flow_model_final.pt \
+    --latents data/gene_36class/numpy/latents.npy \
+    --attributes data/gene_36class/numpy/attributes.npy \
+    --steps 9 \
+    --sample_ids 2 7 \
+    --source_gene 0 \
+    --target_gene 35 \
+    --output_dir experiment/gene_36class/interpolations/interpolations_specific
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Phase 4: Generate Metrics reported in the paper
+
+# 1. UMAP Visualisations
+# UMAP for Real and Original Synthetic Gene Data using Inception V3 Backbone
+python scripts/results/Gene/umap/umap_gene_inceptionBB.py \
+  --real_folder data/samples_umap/real \
+  --generated_folder data/gene_36class/generated \
+  --classes 0,35 \
+  --num_per_class 1000 \
+  --output_folder experiment/gene_36class/umaps/results_umap_inception \
+  --batch_size 64 \
+  --pca_components 64 \
+  --n_neighbors 30 \
+  --min_dist 0.10 \
+  --seed 42 \
+  --device cuda
+
+# UMAP for Real and Edited Synthetic Gene Data using Inception V3 Backbone
+python scripts/results/Gene/umap/umap_gene_inceptionBB_FE.py \
+  --real_folder data/samples_umap/real \
+  --edits_manifest experiment/gene_36class/edits/edits_manifest.csv \
+  --source_gene 0 --target_gene 35 \
+  --num_real_per_class 1000 \
+  --output_folder experiment/gene_36class/umaps/results_umap_inception_FE \
+  --pca_components 64 \
+  --n_neighbors 30 \
+  --min_dist 0.10 \
+  --seed 42 \
+  --device cuda
+
+# UMAP for Real and Original Synthetic Gene Data using Gene CNN Backbone
+python scripts/results/Gene/umap/umap_gene_genecnnBB.py \
+  --real_folder data/samples_umap/real \
+  --generated_folder data/gene_36class/generated \
+  --output_folder experiment/gene_36class/umaps/results_umap_genecnn \
+  --genecnn_checkpoint weights/gene_120epoch/best_model.pt \
+  --classes 0,35 \
+  --num_per_class 1000 \
+  --batch_size 64 \
+  --pca_components 64 \
+  --n_neighbors 30 \
+  --min_dist 0.10 \
+  --seed 42 \
+  --device cuda
+
+# UMAP for Real and Edited Synthetic Gene Data using Gene CNN Backbone
+python scripts/results/Gene/umap/umap_gene_genecnnBB_FE.py \
+  --real_folder data/samples_umap/real \
+  --edits_manifest experiment/gene_36class/edits/edits_manifest.csv \
+  --genecnn_checkpoint weights/gene_120epoch/best_model.pt \
+  --source_gene 0 --target_gene 35 \
+  --num_real_per_class 1000 \
+  --output_folder experiment/gene_36class/umaps/results_umap_genecnn_FE \
+  --pca_components 64 \
+  --n_neighbors 30 \
+  --min_dist 0.10 \
+  --seed 42 \
+  --device cuda
+
+
+# 2. Separation Metrics
+# Separation metrics for Real vs Original Synthetic Gene Data for Gene CNN Backbone
+python scripts/results/Gene/umap/umap_gene_metrics.py \
+  --embeddings experiment/gene_36class/umaps/results_umap_genecnn/embeddings_genecnn_2d.csv \
+  --k 10 \
+  --output experiment/gene_36class/umaps/results_umap_genecnn/umap_metrics_genecnn_2d.csv
+  
+# Separation metrics for Real vs Original Synthetic Gene Data for InceptionV3 Backbone
+python scripts/results/Gene/umap/umap_gene_metrics.py \
+  --embeddings experiment/gene_36class/umaps/results_umap_inception/embeddings_inception_2d.csv \
+  --k 10 \
+  --output experiment/gene_36class/umaps/results_umap_inception/umap_metrics_inception_2d.csv
+  
+# Separation metrics for Real vs Edited Synthetic Gene Data for Gene CNN Backbone
+python scripts/results/Gene/umap/umap_gene_metrics.py \
+  --embeddings experiment/gene_36class/umaps/results_umap_genecnn_FE/embeddings_genecnn_2d.csv \
+  --k 10 \
+  --output experiment/gene_36class/umaps/results_umap_genecnn_FE/umap_metrics_genecnn_fe_2d.csv
+
+# Separation metrics for Real vs Edited Synthetic Gene Data for InceptionV3 Backbone
+python scripts/results/Gene/umap/umap_gene_metrics.py \
+  --embeddings experiment/gene_36class/umaps/results_umap_inception_FE/embeddings_inception_2d.csv \
+  --k 10 \
+  --output experiment/gene_36class/umaps/results_umap_inception_FE/umap_metrics_inception_fe_2d.csv
+
+
+
+# 3. Probe and Perceptual Metrics
+# Probe (Crossing/Reversal) and Perceptual (LPIPS, SSIM) metrics for Gene Edits
+# Metrics are performed on pairs of (original, edited) and (original, reversed) for all samples in the edits_manifest.csv and averaged.
+python scripts/results/All/perception_metrics.py \
+    --triplet_csv experiment/gene_36class/edits/edits_manifest.csv \
+    --cnn_checkpoint weights/gene_120epoch/best_model.pt \
+    --output_csv experiment/gene_36class/metrics/gene_eval_metrics.csv \
+    --device cuda \
+    --batch_size 64 \
+    --seed 42

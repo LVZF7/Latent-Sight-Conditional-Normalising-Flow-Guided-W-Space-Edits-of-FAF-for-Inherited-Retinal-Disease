@@ -1,0 +1,179 @@
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+LATERALITY PIPELINE - Left/Right Eye Classification
+
+Phase 1: Synthetic image generation, labelling and latent extraction 
+
+# Generate Synthetic Images
+python repos/stylegan2-ada-pytorch/generateGSCNFMod.py \
+  --network weights/syntheye_gene_advaith_512.pkl \
+  --seeds 0-9999 \
+  --trunc 0.7 \
+  --class 0 \
+  --outdir data/laterality/generated
+
+# Label with laterality classifier
+python scripts/laterality/label_generated_with_laterality.py \
+  --manifest data/laterality/generated/manifest_generated.csv \
+  --ckpt weights/laterality_120epoch/best_model.pt \
+  --min_size 224
+
+# Extract Latents and Attributes balanced per class
+python scripts/laterality/make_flow_arrays_balanced_perclass.py \
+  --manifest data/laterality/generated/manifest_generated.csv \
+  --outdir data/laterality/numpy \
+  --min_conf_l 0.9 \
+  --min_conf_r 0.9 \
+  --per_class_max 2000
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Phase 2: Training the CNF model
+
+# Train the StyleFlow CNF
+python repos/StyleFlow/train_flow_universal.py \
+  --latents_path data/laterality/numpy/latents.npy \
+  --attrs_path data/laterality/numpy/attributes.npy \
+  --batch_size 64 \
+  --epochs 120 \
+  --lr 1e-4 \
+  --output_dir experiment/laterality/flow/checkpoints \
+  --seed 42 \
+  --early_stop_patience 20
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Phase 3: Generate Results
+
+# Create Laterality Edits
+python scripts/laterality/test_laterality_edits.py \
+  --stylegan_pkl weights/syntheye_gene_advaith_512.pkl \
+  --flow_checkpoint experiment/laterality/flow/checkpoints/flow_model_final.pt \
+  --latents_path data/laterality/numpy/latents.npy \
+  --attrs_path data/laterality/numpy/attributes.npy \
+  --output_dir experiment/laterality/edits \
+  --num_samples 10000 # maxes at 4000 currently
+
+# Plot results grid
+python scripts/results/Laterality/qualitative_grid_results_lat.py \
+  --input_dir experiment/laterality/edits \
+  --output_dir experiment/laterality/result_grid \
+  --img_size 256 \
+  --manifest experiment/laterality/edits/edits_manifest.csv \
+  --num_samples 5
+
+# Create interpolation GIFs and grids any num_samples samples starting from start_index
+python scripts/results/All/visualise_interpolation.py \
+    --stylegan_weights weights/syntheye_gene_advaith_512.pkl \
+    --flow_path experiment/laterality/flow/checkpoints/flow_model_final.pt \
+    --latents data/laterality/numpy/latents.npy \
+    --attributes data/laterality/numpy/attributes.npy \
+    --steps 9 \
+    --num_samples 5 \
+    --start_index 0 \
+    --output_dir experiment/laterality/interpolations
+
+# Interpolation GIFs and grids for specific samples
+python scripts/results/All/visualise_interpolation.py \
+    --stylegan_weights weights/syntheye_gene_advaith_512.pkl \
+    --flow_path experiment/laterality/flow/checkpoints/flow_model_final.pt \
+    --latents data/laterality/numpy/latents.npy \
+    --attributes data/laterality/numpy/attributes.npy \
+    --steps 9 \
+    --sample_ids 1 7 \
+    --output_dir experiment/laterality/interpolations/interpolations_specific
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Phase 4: Generate Metrics reported in the paper
+
+# 1. UMAP Visualisations
+# UMAP for Real and Original Synthetic Gene Data using Inception V3 Backbone
+python scripts/results/Laterality/umap/umap_lat_inceptionBB.py \
+  --real_folder data/samples_umap/real \
+  --synthetic_manifest data/laterality/generated/manifest_generated.csv \
+  --output_folder experiment/laterality/results_umap_inception \
+  --num_per_group 1000 \
+  --min_conf 0.90 \
+  --batch_size 64 \
+  --pca_components 64 \
+  --n-neighbors 30 \
+  --min_dist 0.10 \
+  --seed 42 \
+  --device cuda
+
+# UMAP for Real and Edited Synthetic Gene Data using Inception V3 Backbone
+python scripts/results/Laterality/umap/umap_lat_inceptionBB_FE.py \
+  --real_folder data/samples_umap/real \
+  --edits_manifest experiment/laterality/edits/edits_manifest.csv \
+  --output_folder experiment/laterality/umaps/results_umap_inception_FE \
+  --num_per_group 1000 \
+  --batch_size 64 \
+  --pca_components 64 \
+  --n-neighbors 30 \
+  --min_dist 0.10 \
+  --seed 42 \
+  --device cuda
+
+# UMAP for Real and Original Synthetic Gene Data using Laterality CNN Backbone
+python scripts/results/Laterality/umap/umap_lat_latcnnBB.py \
+  --real_folder data/samples_umap/real \
+  --synthetic_manifest data/laterality/generated/manifest_generated.csv \
+  --output_folder experiment/laterality/results_umap_latcnn \
+  --latcnn_checkpoint weights/laterality_120epoch/best_model.pt \
+  --num_per_group 1000 \
+  --min_conf 0.90 \
+  --batch_size 64 \
+  --pca_components 64 \
+  --n-neighbors 30 \
+  --min_dist 0.10 \
+  --seed 42 \
+  --device cuda
+
+# UMAP for Real and Edited Synthetic Laterality Data using Laterality CNN Backbone
+python scripts/results/Laterality/umap/umap_lat_latcnnBB_FE.py \
+  --real_folder data/samples_umap/real \
+  --edits_manifest experiment/laterality/edits/edits_manifest.csv \
+  --output_folder experiment/laterality/umaps/results_umap_latcnn_FE \
+  --latcnn_checkpoint weights/laterality_120epoch/best_model.pt \
+  --num_per_group 1000 \
+  --batch_size 64 \
+  --pca_components 64 \
+  --n_neighbors 30 \
+  --min_dist 0.10 \
+  --seed 42 \
+  --device cuda
+
+
+# 2. Separation Metrics
+# Separation metrics for Real vs Original Synthetic Laterality Data for Laterality CNN Backbone
+python scripts/results/Laterality/umap/umap_lat_metrics.py \
+  --embeddings experiment/laterality/umaps/results_umap_latcnn/embeddings_latcnn_2d.csv \
+  --k 10 \
+  --output experiment/laterality/umaps/results_umap_latcnn/umap_metrics_latcnn_2d.csv
+  
+# Separation metrics for Real vs Original Synthetic Laterality Data for InceptionV3 Backbone
+python scripts/results/Laterality/umap/umap_lat_metrics.py \
+  --embeddings experiment/laterality/umaps/results_umap_inception/embeddings_inception_2d.csv \
+  --k 10 \
+  --output experiment/laterality/umaps/results_umap_inception/umap_metrics_inception_2d.csv
+  
+# Separation metrics for Real vs Edited Synthetic Laterality Data for Laterality CNN Backbone
+python scripts/results/Laterality/umap/umap_lat_metrics.py \
+  --embeddings experiment/laterality/umaps/results_umap_latcnn_FE/embeddings_latcnn_2d.csv \
+  --k 10 \
+  --output experiment/laterality/umaps/results_umap_latcnn_FE/umap_metrics_latcnn_fe_2d.csv
+
+# Separation metrics for Real vs Edited Synthetic Laterality Data for InceptionV3 Backbone
+python scripts/results/Laterality/umap/umap_lat_metrics.py \
+  --embeddings experiment/laterality/umaps/results_umap_inception_FE/embeddings_inception_2d.csv \
+  --k 10 \
+  --output experiment/laterality/umaps/results_umap_inception_FE/umap_metrics_inception_fe_2d.csv
+
+
+# 3. Probe and Perceptual Metrics
+# Probe (Crossing/Reversal) and Perceptual (LPIPS, SSIM) metrics for Laterality Edits
+# Metrics are performed on pairs of (original, edited) and (original, reversed) for all samples in the edits_manifest.csv and averaged.
+python scripts/results/All/perception_metrics.py \
+    --triplet_csv experiment/laterality/edits/edits_manifest.csv \
+    --cnn_checkpoint weights/laterality_120epoch/best_model.pt \
+    --output_csv experiment/laterality/metrics/lat_eval_metrics.csv \
+    --device cuda \
+    --batch_size 64 \
+    --seed 42
