@@ -1,0 +1,2 @@
+file,silhouette_LR,10NN_self_domain_pct,centroid_dist_L_vs_R,centroid_dist_RealL_vs_SynthL,centroid_dist_RealR_vs_SynthR,centroid_dist_Real_vs_Synth_all
+embeddings_latcnn_2d.csv,0.7191793948442485,96.49249999999999,16.58392812393356,7.805226962108919,6.007270671171729,6.557495254804451

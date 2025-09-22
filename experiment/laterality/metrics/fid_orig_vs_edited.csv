@@ -1,0 +1,3 @@
+backbone,set1,set2,n_set1,n_set2,FID
+InceptionV3,Original,Edited,4000,4000,4.249068964667515
+Laterality CNN (ResNet-18),Original,Edited,4000,4000,1.5440403354873524

@@ -1,0 +1,3 @@
+backbone,set1,set2,n_set1,n_set2,FID
+InceptionV3,Real-L(test),Synth-Edited-L,1000,2000,118.12553062775612
+Laterality CNN (ResNet-18),Real-L(test),Synth-Edited-L,1000,2000,207.68571165236241

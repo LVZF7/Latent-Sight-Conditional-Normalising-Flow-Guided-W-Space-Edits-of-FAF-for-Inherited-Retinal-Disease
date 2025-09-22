@@ -1,0 +1,2 @@
+file,silhouette_gene,10NN_self_domain_pct,centroid_dist_Real_vs_Synth_all,centroid_dist_geneA_vs_geneB,centroid_dist_geneA_Real_vs_Synth,centroid_dist_geneB_Real_vs_Synth
+embeddings_genecnn_2d.csv,0.7884686443789585,62.67999999999999,1.6832660610437982,18.600491549131082,2.116375772969952,1.2998765003931338

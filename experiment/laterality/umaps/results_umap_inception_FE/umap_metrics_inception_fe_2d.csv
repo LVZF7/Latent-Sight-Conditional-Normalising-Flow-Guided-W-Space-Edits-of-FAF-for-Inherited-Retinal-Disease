@@ -1,0 +1,2 @@
+file,silhouette_LR,10NN_self_domain_pct,centroid_dist_L_vs_R,centroid_dist_RealL_vs_SynthL,centroid_dist_RealR_vs_SynthR,centroid_dist_Real_vs_Synth_all
+embeddings_inception_2d.csv,0.011608082980368622,83.17666666666668,0.6273906761801361,5.158984801898431,3.9264149965758723,4.542656551044484

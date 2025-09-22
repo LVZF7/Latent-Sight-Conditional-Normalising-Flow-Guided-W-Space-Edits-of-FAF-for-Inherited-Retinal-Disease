@@ -1,0 +1,2 @@
+run,best_epoch,best_nll,best_bits_per_dim
+experiment/gene_36class/flow/checkpoints/training_summary.json,120,-262.787182,-0.740472
