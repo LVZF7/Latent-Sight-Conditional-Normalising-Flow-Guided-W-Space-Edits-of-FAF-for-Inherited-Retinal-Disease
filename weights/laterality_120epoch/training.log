@@ -1,0 +1,140 @@
+2025-09-12 08:02:16,946 - INFO - Starting laterality training with args: {'data_root': PosixPath('data/real/latCNN_training_splits'), 'out_dir': PosixPath('weights/laterality_120epoch'), 'backbone': 'resnet18', 'epochs': 120, 'batch_size': 64, 'learning_rate': 0.0001, 'weight_decay': 0.0001, 'plateau_patience': 8, 'early_stop_patience': 20, 'lr_factor': 0.3, 'min_lr': 1e-06, 'device': 'cuda', 'num_workers': 4, 'seed': 42}
+2025-09-12 08:02:18,832 - INFO - Dataset sizes - Train: 27265, Val: 3408, Test: 3409
+2025-09-12 08:02:18,832 - INFO - Class Mapping: {'L': 0, 'R': 1}
+2025-09-12 08:02:19,027 - INFO - Created resnet18 model with 11,177,538 parameters
+2025-09-12 08:02:19,106 - INFO - Starting training...
+2025-09-12 08:03:53,846 - INFO - Saved best model checkpoint to weights/laterality_120epoch/best_model.pt with AUC 0.9328
+2025-09-12 08:03:53,847 - INFO - Epoch 001/120 (94.7s) - Train Loss: 0.6431, Acc: 0.617 | Val Loss: 0.3626, Acc: 0.829, AUC: 0.9328
+2025-09-12 08:03:53,847 - INFO - Current learning rate: 0.000100
+2025-09-12 08:05:29,591 - INFO - Saved best model checkpoint to weights/laterality_120epoch/best_model.pt with AUC 0.9876
+2025-09-12 08:05:29,591 - INFO - Epoch 002/120 (95.7s) - Train Loss: 0.3073, Acc: 0.850 | Val Loss: 0.1391, Acc: 0.939, AUC: 0.9876
+2025-09-12 08:05:29,591 - INFO - Current learning rate: 0.000100
+2025-09-12 08:07:04,388 - INFO - Saved best model checkpoint to weights/laterality_120epoch/best_model.pt with AUC 0.9895
+2025-09-12 08:07:04,389 - INFO - Epoch 003/120 (94.8s) - Train Loss: 0.1851, Acc: 0.914 | Val Loss: 0.1304, Acc: 0.942, AUC: 0.9895
+2025-09-12 08:07:04,389 - INFO - Current learning rate: 0.000100
+2025-09-12 08:08:38,568 - INFO - Epoch 004/120 (94.2s) - Train Loss: 0.1555, Acc: 0.929 | Val Loss: 0.1374, Acc: 0.932, AUC: 0.9876
+2025-09-12 08:08:38,568 - INFO - Current learning rate: 0.000100
+2025-09-12 08:10:13,407 - INFO - Epoch 005/120 (94.8s) - Train Loss: 0.1298, Acc: 0.938 | Val Loss: 0.1418, Acc: 0.936, AUC: 0.9877
+2025-09-12 08:10:13,407 - INFO - Current learning rate: 0.000100
+2025-09-12 08:11:48,260 - INFO - Saved best model checkpoint to weights/laterality_120epoch/best_model.pt with AUC 0.9946
+2025-09-12 08:11:48,261 - INFO - Epoch 006/120 (94.9s) - Train Loss: 0.1231, Acc: 0.942 | Val Loss: 0.0954, Acc: 0.954, AUC: 0.9946
+2025-09-12 08:11:48,261 - INFO - Current learning rate: 0.000100
+2025-09-12 08:13:23,017 - INFO - Epoch 007/120 (94.8s) - Train Loss: 0.1151, Acc: 0.947 | Val Loss: 0.1364, Acc: 0.936, AUC: 0.9891
+2025-09-12 08:13:23,017 - INFO - Current learning rate: 0.000100
+2025-09-12 08:14:57,758 - INFO - Epoch 008/120 (94.7s) - Train Loss: 0.1068, Acc: 0.949 | Val Loss: 0.0970, Acc: 0.955, AUC: 0.9938
+2025-09-12 08:14:57,759 - INFO - Current learning rate: 0.000100
+2025-09-12 08:16:31,799 - INFO - Epoch 009/120 (94.0s) - Train Loss: 0.0987, Acc: 0.952 | Val Loss: 0.1024, Acc: 0.946, AUC: 0.9928
+2025-09-12 08:16:31,799 - INFO - Current learning rate: 0.000100
+2025-09-12 08:18:06,590 - INFO - Saved best model checkpoint to weights/laterality_120epoch/best_model.pt with AUC 0.9951
+2025-09-12 08:18:06,592 - INFO - Epoch 010/120 (94.8s) - Train Loss: 0.0987, Acc: 0.954 | Val Loss: 0.0865, Acc: 0.957, AUC: 0.9951
+2025-09-12 08:18:06,592 - INFO - Current learning rate: 0.000100
+2025-09-12 08:19:40,965 - INFO - Epoch 011/120 (94.4s) - Train Loss: 0.0914, Acc: 0.957 | Val Loss: 0.1117, Acc: 0.946, AUC: 0.9924
+2025-09-12 08:19:40,966 - INFO - Current learning rate: 0.000100
+2025-09-12 08:21:15,555 - INFO - Saved best model checkpoint to weights/laterality_120epoch/best_model.pt with AUC 0.9956
+2025-09-12 08:21:15,556 - INFO - Epoch 012/120 (94.6s) - Train Loss: 0.0889, Acc: 0.959 | Val Loss: 0.0836, Acc: 0.960, AUC: 0.9956
+2025-09-12 08:21:15,556 - INFO - Current learning rate: 0.000100
+2025-09-12 08:22:50,901 - INFO - Epoch 013/120 (95.3s) - Train Loss: 0.0884, Acc: 0.958 | Val Loss: 0.0924, Acc: 0.953, AUC: 0.9942
+2025-09-12 08:22:50,902 - INFO - Current learning rate: 0.000100
+2025-09-12 08:24:25,956 - INFO - Epoch 014/120 (95.1s) - Train Loss: 0.0842, Acc: 0.959 | Val Loss: 0.1154, Acc: 0.947, AUC: 0.9916
+2025-09-12 08:24:25,957 - INFO - Current learning rate: 0.000100
+2025-09-12 08:26:00,852 - INFO - Saved best model checkpoint to weights/laterality_120epoch/best_model.pt with AUC 0.9962
+2025-09-12 08:26:00,853 - INFO - Epoch 015/120 (94.9s) - Train Loss: 0.0807, Acc: 0.960 | Val Loss: 0.0759, Acc: 0.964, AUC: 0.9962
+2025-09-12 08:26:00,853 - INFO - Current learning rate: 0.000100
+2025-09-12 08:27:35,364 - INFO - Epoch 016/120 (94.5s) - Train Loss: 0.0802, Acc: 0.960 | Val Loss: 0.0818, Acc: 0.960, AUC: 0.9957
+2025-09-12 08:27:35,364 - INFO - Current learning rate: 0.000100
+2025-09-12 08:29:10,013 - INFO - Epoch 017/120 (94.6s) - Train Loss: 0.0775, Acc: 0.961 | Val Loss: 0.1208, Acc: 0.943, AUC: 0.9903
+2025-09-12 08:29:10,013 - INFO - Current learning rate: 0.000100
+2025-09-12 08:30:44,894 - INFO - Saved best model checkpoint to weights/laterality_120epoch/best_model.pt with AUC 0.9962
+2025-09-12 08:30:44,895 - INFO - Epoch 018/120 (94.9s) - Train Loss: 0.0745, Acc: 0.963 | Val Loss: 0.0749, Acc: 0.963, AUC: 0.9962
+2025-09-12 08:30:44,895 - INFO - Current learning rate: 0.000100
+2025-09-12 08:32:19,907 - INFO - Epoch 019/120 (95.0s) - Train Loss: 0.0748, Acc: 0.963 | Val Loss: 0.0852, Acc: 0.961, AUC: 0.9954
+2025-09-12 08:32:19,907 - INFO - Current learning rate: 0.000100
+2025-09-12 08:33:54,183 - INFO - Epoch 020/120 (94.3s) - Train Loss: 0.0713, Acc: 0.965 | Val Loss: 0.0845, Acc: 0.960, AUC: 0.9948
+2025-09-12 08:33:54,183 - INFO - Current learning rate: 0.000100
+2025-09-12 08:35:28,993 - INFO - Epoch 021/120 (94.8s) - Train Loss: 0.0739, Acc: 0.963 | Val Loss: 0.1135, Acc: 0.951, AUC: 0.9923
+2025-09-12 08:35:28,993 - INFO - Current learning rate: 0.000100
+2025-09-12 08:37:03,336 - INFO - Epoch 022/120 (94.3s) - Train Loss: 0.0714, Acc: 0.964 | Val Loss: 0.0805, Acc: 0.961, AUC: 0.9956
+2025-09-12 08:37:03,337 - INFO - Current learning rate: 0.000100
+2025-09-12 08:38:38,043 - INFO - Epoch 023/120 (94.7s) - Train Loss: 0.0713, Acc: 0.965 | Val Loss: 0.0811, Acc: 0.963, AUC: 0.9960
+2025-09-12 08:38:38,044 - INFO - Current learning rate: 0.000100
+2025-09-12 08:40:12,936 - INFO - Saved best model checkpoint to weights/laterality_120epoch/best_model.pt with AUC 0.9964
+2025-09-12 08:40:12,938 - INFO - Epoch 024/120 (94.9s) - Train Loss: 0.0676, Acc: 0.966 | Val Loss: 0.0806, Acc: 0.959, AUC: 0.9964
+2025-09-12 08:40:12,939 - INFO - Current learning rate: 0.000030
+2025-09-12 08:41:47,718 - INFO - Saved best model checkpoint to weights/laterality_120epoch/best_model.pt with AUC 0.9965
+2025-09-12 08:41:47,719 - INFO - Epoch 025/120 (94.8s) - Train Loss: 0.0553, Acc: 0.971 | Val Loss: 0.0725, Acc: 0.964, AUC: 0.9965
+2025-09-12 08:41:47,719 - INFO - Current learning rate: 0.000030
+2025-09-12 08:43:22,467 - INFO - Epoch 026/120 (94.7s) - Train Loss: 0.0501, Acc: 0.974 | Val Loss: 0.0741, Acc: 0.963, AUC: 0.9962
+2025-09-12 08:43:22,468 - INFO - Current learning rate: 0.000030
+2025-09-12 08:44:57,321 - INFO - Epoch 027/120 (94.9s) - Train Loss: 0.0496, Acc: 0.974 | Val Loss: 0.0786, Acc: 0.962, AUC: 0.9958
+2025-09-12 08:44:57,322 - INFO - Current learning rate: 0.000030
+2025-09-12 08:46:32,823 - INFO - Epoch 028/120 (95.5s) - Train Loss: 0.0477, Acc: 0.974 | Val Loss: 0.0720, Acc: 0.964, AUC: 0.9963
+2025-09-12 08:46:32,823 - INFO - Current learning rate: 0.000030
+2025-09-12 08:48:07,057 - INFO - Epoch 029/120 (94.2s) - Train Loss: 0.0461, Acc: 0.975 | Val Loss: 0.0877, Acc: 0.966, AUC: 0.9963
+2025-09-12 08:48:07,057 - INFO - Current learning rate: 0.000030
+2025-09-12 08:49:42,384 - INFO - Epoch 030/120 (95.3s) - Train Loss: 0.0469, Acc: 0.975 | Val Loss: 0.0808, Acc: 0.964, AUC: 0.9963
+2025-09-12 08:49:42,385 - INFO - Current learning rate: 0.000030
+2025-09-12 08:51:16,991 - INFO - Epoch 031/120 (94.6s) - Train Loss: 0.0447, Acc: 0.976 | Val Loss: 0.0813, Acc: 0.964, AUC: 0.9964
+2025-09-12 08:51:16,992 - INFO - Current learning rate: 0.000030
+2025-09-12 08:52:51,907 - INFO - Epoch 032/120 (94.9s) - Train Loss: 0.0438, Acc: 0.977 | Val Loss: 0.0884, Acc: 0.966, AUC: 0.9960
+2025-09-12 08:52:51,907 - INFO - Current learning rate: 0.000030
+2025-09-12 08:54:26,434 - INFO - Epoch 033/120 (94.5s) - Train Loss: 0.0454, Acc: 0.975 | Val Loss: 0.0876, Acc: 0.966, AUC: 0.9965
+2025-09-12 08:54:26,435 - INFO - Current learning rate: 0.000009
+2025-09-12 08:56:01,406 - INFO - Epoch 034/120 (95.0s) - Train Loss: 0.0422, Acc: 0.977 | Val Loss: 0.0823, Acc: 0.966, AUC: 0.9964
+2025-09-12 08:56:01,406 - INFO - Current learning rate: 0.000009
+2025-09-12 08:57:36,533 - INFO - Saved best model checkpoint to weights/laterality_120epoch/best_model.pt with AUC 0.9966
+2025-09-12 08:57:36,534 - INFO - Epoch 035/120 (95.1s) - Train Loss: 0.0400, Acc: 0.979 | Val Loss: 0.0830, Acc: 0.965, AUC: 0.9966
+2025-09-12 08:57:36,535 - INFO - Current learning rate: 0.000009
+2025-09-12 08:59:12,120 - INFO - Saved best model checkpoint to weights/laterality_120epoch/best_model.pt with AUC 0.9966
+2025-09-12 08:59:12,121 - INFO - Epoch 036/120 (95.6s) - Train Loss: 0.0403, Acc: 0.978 | Val Loss: 0.0862, Acc: 0.964, AUC: 0.9966
+2025-09-12 08:59:12,121 - INFO - Current learning rate: 0.000009
+2025-09-12 09:00:47,205 - INFO - Epoch 037/120 (95.1s) - Train Loss: 0.0387, Acc: 0.978 | Val Loss: 0.0824, Acc: 0.964, AUC: 0.9965
+2025-09-12 09:00:47,205 - INFO - Current learning rate: 0.000009
+2025-09-12 09:02:22,419 - INFO - Saved best model checkpoint to weights/laterality_120epoch/best_model.pt with AUC 0.9967
+2025-09-12 09:02:22,419 - INFO - Epoch 038/120 (95.2s) - Train Loss: 0.0395, Acc: 0.980 | Val Loss: 0.0818, Acc: 0.966, AUC: 0.9967
+2025-09-12 09:02:22,419 - INFO - Current learning rate: 0.000009
+2025-09-12 09:03:57,057 - INFO - Epoch 039/120 (94.6s) - Train Loss: 0.0386, Acc: 0.979 | Val Loss: 0.0855, Acc: 0.965, AUC: 0.9965
+2025-09-12 09:03:57,057 - INFO - Current learning rate: 0.000009
+2025-09-12 09:05:31,261 - INFO - Epoch 040/120 (94.2s) - Train Loss: 0.0375, Acc: 0.980 | Val Loss: 0.0896, Acc: 0.962, AUC: 0.9965
+2025-09-12 09:05:31,261 - INFO - Current learning rate: 0.000009
+2025-09-12 09:07:05,953 - INFO - Epoch 041/120 (94.7s) - Train Loss: 0.0377, Acc: 0.980 | Val Loss: 0.0864, Acc: 0.966, AUC: 0.9964
+2025-09-12 09:07:05,953 - INFO - Current learning rate: 0.000009
+2025-09-12 09:08:40,889 - INFO - Epoch 042/120 (94.9s) - Train Loss: 0.0377, Acc: 0.980 | Val Loss: 0.0858, Acc: 0.966, AUC: 0.9966
+2025-09-12 09:08:40,889 - INFO - Current learning rate: 0.000003
+2025-09-12 09:10:15,711 - INFO - Epoch 043/120 (94.8s) - Train Loss: 0.0362, Acc: 0.981 | Val Loss: 0.0866, Acc: 0.965, AUC: 0.9966
+2025-09-12 09:10:15,711 - INFO - Current learning rate: 0.000003
+2025-09-12 09:11:50,521 - INFO - Epoch 044/120 (94.8s) - Train Loss: 0.0347, Acc: 0.981 | Val Loss: 0.0902, Acc: 0.965, AUC: 0.9966
+2025-09-12 09:11:50,521 - INFO - Current learning rate: 0.000003
+2025-09-12 09:13:24,635 - INFO - Epoch 045/120 (94.1s) - Train Loss: 0.0348, Acc: 0.982 | Val Loss: 0.0875, Acc: 0.966, AUC: 0.9965
+2025-09-12 09:13:24,635 - INFO - Current learning rate: 0.000003
+2025-09-12 09:14:59,580 - INFO - Epoch 046/120 (94.9s) - Train Loss: 0.0356, Acc: 0.981 | Val Loss: 0.0893, Acc: 0.964, AUC: 0.9965
+2025-09-12 09:14:59,580 - INFO - Current learning rate: 0.000003
+2025-09-12 09:16:34,081 - INFO - Epoch 047/120 (94.5s) - Train Loss: 0.0353, Acc: 0.981 | Val Loss: 0.0870, Acc: 0.966, AUC: 0.9966
+2025-09-12 09:16:34,081 - INFO - Current learning rate: 0.000003
+2025-09-12 09:18:08,352 - INFO - Epoch 048/120 (94.3s) - Train Loss: 0.0343, Acc: 0.982 | Val Loss: 0.0886, Acc: 0.965, AUC: 0.9966
+2025-09-12 09:18:08,352 - INFO - Current learning rate: 0.000003
+2025-09-12 09:19:42,824 - INFO - Epoch 049/120 (94.5s) - Train Loss: 0.0342, Acc: 0.981 | Val Loss: 0.0911, Acc: 0.964, AUC: 0.9965
+2025-09-12 09:19:42,824 - INFO - Current learning rate: 0.000003
+2025-09-12 09:21:16,946 - INFO - Epoch 050/120 (94.1s) - Train Loss: 0.0338, Acc: 0.982 | Val Loss: 0.0893, Acc: 0.966, AUC: 0.9966
+2025-09-12 09:21:16,946 - INFO - Current learning rate: 0.000003
+2025-09-12 09:22:50,878 - INFO - Epoch 051/120 (93.9s) - Train Loss: 0.0332, Acc: 0.983 | Val Loss: 0.0901, Acc: 0.965, AUC: 0.9965
+2025-09-12 09:22:50,878 - INFO - Current learning rate: 0.000001
+2025-09-12 09:24:25,956 - INFO - Epoch 052/120 (95.1s) - Train Loss: 0.0336, Acc: 0.982 | Val Loss: 0.0881, Acc: 0.964, AUC: 0.9965
+2025-09-12 09:24:25,956 - INFO - Current learning rate: 0.000001
+2025-09-12 09:26:00,581 - INFO - Epoch 053/120 (94.6s) - Train Loss: 0.0332, Acc: 0.983 | Val Loss: 0.0883, Acc: 0.967, AUC: 0.9967
+2025-09-12 09:26:00,581 - INFO - Current learning rate: 0.000001
+2025-09-12 09:27:34,627 - INFO - Epoch 054/120 (94.0s) - Train Loss: 0.0330, Acc: 0.983 | Val Loss: 0.0879, Acc: 0.966, AUC: 0.9966
+2025-09-12 09:27:34,628 - INFO - Current learning rate: 0.000001
+2025-09-12 09:29:09,186 - INFO - Epoch 055/120 (94.6s) - Train Loss: 0.0326, Acc: 0.983 | Val Loss: 0.0903, Acc: 0.965, AUC: 0.9965
+2025-09-12 09:29:09,186 - INFO - Current learning rate: 0.000001
+2025-09-12 09:30:43,476 - INFO - Epoch 056/120 (94.3s) - Train Loss: 0.0336, Acc: 0.983 | Val Loss: 0.0888, Acc: 0.965, AUC: 0.9965
+2025-09-12 09:30:43,476 - INFO - Current learning rate: 0.000001
+2025-09-12 09:32:17,987 - INFO - Epoch 057/120 (94.5s) - Train Loss: 0.0325, Acc: 0.983 | Val Loss: 0.0901, Acc: 0.964, AUC: 0.9966
+2025-09-12 09:32:17,987 - INFO - Current learning rate: 0.000001
+2025-09-12 09:33:52,746 - INFO - Early stopping at epoch 58 (no AUC improvement for 20 epochs).
+2025-09-12 09:33:52,747 - INFO - Training completed in 5493.6 seconds
+2025-09-12 09:33:52,747 - INFO - Evaluating on test set using BEST model...
+2025-09-12 09:34:02,893 - INFO - BEST Model Test Results - Loss: 0.0787, Accuracy: 0.971, AUC: 0.9974
+2025-09-12 09:34:03,586 - INFO - Training curves saved to weights/laterality_120epoch/training_curves.png
+2025-09-12 09:34:03,588 - INFO - Training summary saved to weights/laterality_120epoch/training_summary.json
+2025-09-12 09:34:03,588 - INFO - Best model saved to: weights/laterality_120epoch/best_model.pt
+2025-09-12 09:34:03,588 - INFO - Training complete
